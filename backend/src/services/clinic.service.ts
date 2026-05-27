@@ -24,3 +24,11 @@ export const syncUserService = async (
 
   return clinic;
 };
+
+export const fetchClinicUserService = async (supabaseId: string) => {
+  return await prisma.clinic.findUnique({
+    where: {
+      supabaseId,
+    },
+  });
+};
