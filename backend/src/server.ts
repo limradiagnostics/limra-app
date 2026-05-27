@@ -1,8 +1,16 @@
 import express from "express";
 import { connectToDB } from "./config/database.config";
+import { ENV } from "./config/env.config";
+import cors from "cors";
+import mainRouter from "./routes/index.route";
 
 const app = express();
-const PORT = 3001;
+const PORT = ENV.PORT;
+
+app.use(express.json());
+app.use(cors());
+
+app.use("/api", mainRouter);
 
 const startServer = async () => {
   await connectToDB();
