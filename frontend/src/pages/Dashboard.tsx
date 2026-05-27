@@ -1,3 +1,4 @@
+import { syncUserAPI } from "@/api/clinic.api";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
 import { useEffect, useState } from "react";
@@ -25,6 +26,19 @@ const Dashboard = () => {
 
     console.log(data.user);
     setUser(data.user);
+
+    try {
+      await syncUserAPI(
+        data.user.id,
+        data.user.user_metadata?.full_name!,
+        data.user.email,
+        data.user.user_metadata?.avatar_url!,
+      );
+
+      console.log("Clinic user sync to database");
+    } catch (error) {
+      console.log("Clinic user already exist in database");
+    }
   };
 
   useEffect(() => {
