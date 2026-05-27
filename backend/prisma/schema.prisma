@@ -9,15 +9,13 @@ datasource db {
 
 model clinic {
   id                String             @id @default(uuid())
-  supabaseId        String
+  supabaseId        String             @unique
   name              String
-  email             String
+  email             String             @unique
   accountType       ClinicAccountType?
   status            Boolean?
   profilePictureUrl String?
   createdAt         DateTime           @default(now())
-
-  @@unique([supabaseId, email])
 }
 
 enum ClinicAccountType {
