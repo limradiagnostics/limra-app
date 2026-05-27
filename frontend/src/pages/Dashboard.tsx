@@ -32,7 +32,7 @@ const Dashboard = () => {
         data.user.id,
         data.user.user_metadata?.full_name!,
         data.user.email,
-        data.user.user_metadata?.avatar_url!,
+        data.user.user_metadata?.avatar_url! || null,
       );
 
       console.log("Clinic user sync to database");
