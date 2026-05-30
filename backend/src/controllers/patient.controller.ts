@@ -1,3 +1,4 @@
+import { PatientType } from "@prisma/client";
 import * as patientServices from "../services/patient.service";
 import { Request, Response } from "express";
 
@@ -51,6 +52,31 @@ export const registerOBSPatientController = async (
     );
 
     res.status(201).json({ message: "OBS patient registered", patient });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const fetchAllPatientsController = async (
+  req: Request,
+  res: Response,
+) => {
+  const { type } = req.query;
+
+  if (!type) {
+    console.log("Please enter a type of patients to fetch");
+    return res
+      .status(404)
+      .json({ error: "Please enter a type of patients to fetch" });
+  }
+
+  try {
+    const patients = await patientServices.fetchAllPatientsService(
+      type as PatientType,
+    );
+
+    res.status(200).json({ total: patients.length, patients });
   } catch (error: any) {
     console.log(error.message);
     return res.status(500).json({ error: error.message });
