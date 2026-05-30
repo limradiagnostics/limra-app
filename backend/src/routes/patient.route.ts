@@ -17,4 +17,9 @@ patientRouter.get("/:phone", patientController.fetchSinglePatientController);
 
 patientRouter.put("/edit/:phone", patientController.updatePatientController);
 
+patientRouter.delete(
+  "/delete/:phone",
+  patientController.deletePatientController,
+);
+
 export default patientRouter;
