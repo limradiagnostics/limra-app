@@ -64,3 +64,13 @@ export const updateBillService = async (
 
   return { patientName, bill };
 };
+
+export const deleteBillService = async (id: string) => {
+  const bill = await prisma.bill.delete({
+    where: {
+      id,
+    },
+  });
+
+  return bill;
+};
