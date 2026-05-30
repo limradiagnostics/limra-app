@@ -79,7 +79,7 @@ export const fetchAllPatientsController = async (
     res.status(200).json({ total: patients.length, patients });
   } catch (error: any) {
     console.log(error.message);
-    return res.status(500).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 };
 
@@ -91,7 +91,7 @@ export const fetchSinglePatientController = async (
 
   if (!phone) {
     console.log("Phone number not found in params");
-    return res.status(404).json({ error: "Phone number not found in params" });
+    return res.status(400).json({ error: "Phone number not found in params" });
   }
 
   try {
@@ -102,18 +102,23 @@ export const fetchSinglePatientController = async (
     res.status(200).json({ patient });
   } catch (error: any) {
     console.log(error.message);
-    return res.status(500).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 };
 
 export const updatePatientController = async (req: Request, res: Response) => {
-  const { name, address, phone, aadharNumber, progenies, husbandName, type } =
+  const { phone } = req.params;
+  if (!phone) {
+    console.log("Phone number not found in params");
+    return res.status(400).json({ error: "Phone number not found in params" });
+  }
+
+  const { name, address, aadharNumber, progenies, husbandName, type } =
     req.body;
 
   const data = {
     name,
     address,
-    phone,
     aadharNumber,
     progenies,
     husbandName,
@@ -128,7 +133,7 @@ export const updatePatientController = async (req: Request, res: Response) => {
     const patient = await patientServices.updatePatientService(
       name,
       address,
-      phone,
+      phone as string,
       aadharNumber,
       progenies,
       husbandName,

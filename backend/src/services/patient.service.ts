@@ -98,7 +98,7 @@ export const updatePatientService = async (
     city: string;
     state: string;
   },
-  phone: number,
+  phone: string,
   aadharNumber: number,
   progenies: [
     {
@@ -109,21 +109,23 @@ export const updatePatientService = async (
   husbandName: string,
   type: PatientType,
 ) => {
+  const contact = Number(phone);
+
   const existing = await prisma.patient.findUnique({
     where: {
-      phone,
+      phone: contact,
     },
   });
   if (!existing) throw new Error("Patient account does not exist");
 
   const patient = await prisma.patient.update({
     where: {
-      phone,
+      phone: contact,
     },
     data: {
       name,
       address,
-      phone,
+      phone: contact,
       aadharNumber,
       progenies,
       husbandName,
