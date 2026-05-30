@@ -9,4 +9,6 @@ billRouter.get("/all", billControllers.fetchAllBillsController);
 
 billRouter.put("/edit/:id", billControllers.updateBillController);
 
+billRouter.delete("/delete/:id", billControllers.deleteBillController);
+
 export default billRouter;
