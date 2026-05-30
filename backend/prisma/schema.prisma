@@ -39,6 +39,7 @@ model bill {
   concession  Float
   dueAmount   Float
   createdAt   DateTime @default(now())
+  documentUrl String?
 
   patientId String?
   patient   patient? @relation(fields: [patientId], references: [id])
