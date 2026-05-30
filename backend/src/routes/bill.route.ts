@@ -7,4 +7,6 @@ billRouter.post("/generate", billControllers.generateBillController);
 
 billRouter.get("/all", billControllers.fetchAllBillsController);
 
+billRouter.put("/edit/:id", billControllers.updateBillController);
+
 export default billRouter;
