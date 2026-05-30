@@ -26,3 +26,33 @@ export const registerRegularPatientController = async (
     return res.status(500).json({ error: error.message });
   }
 };
+
+export const registerOBSPatientController = async (
+  req: Request,
+  res: Response,
+) => {
+  const { name, address, phone, aadharNumber, progenies, husbandName } =
+    req.body;
+
+  const data = { name, address, phone, aadharNumber, progenies, husbandName };
+  if (!data) {
+    console.log("Required fields are missing");
+    return res.status(404).json({ error: "Required fields are missing" });
+  }
+
+  try {
+    const patient = await patientServices.registerOBSPatientService(
+      name,
+      address,
+      phone,
+      aadharNumber,
+      progenies,
+      husbandName,
+    );
+
+    res.status(201).json({ message: "OBS patient registered", patient });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};
