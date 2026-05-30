@@ -135,3 +135,15 @@ export const updatePatientService = async (
 
   return patient;
 };
+
+export const deletePatientService = async (phone: string) => {
+  const contact = Number(phone);
+
+  const patient = await prisma.patient.delete({
+    where: {
+      phone: contact,
+    },
+  });
+
+  return patient;
+};
