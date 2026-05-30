@@ -62,8 +62,24 @@ export const updateBillController = async (req: Request, res: Response) => {
       dueAmount,
     );
     res
-      .status(201)
+      .status(200)
       .json({ message: `Bill generated for ${patientName}`, bill });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const deleteBillController = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  if (!id) {
+    console.log("Id is missing from params");
+    return res.status(400).json({ error: "Id is missing from params" });
+  }
+
+  try {
+    await billServices.deleteBillService(id as string);
+    res.status(204).json({ message: "Bill deleted" });
   } catch (error: any) {
     console.log(error.message);
     return res.status(500).json({ error: error.message });
