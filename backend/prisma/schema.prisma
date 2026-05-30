@@ -28,6 +28,20 @@ model patient {
   progenies    Json[]
   husbandName  String?
   createdAt    DateTime    @default(now())
+
+  bills bill[]
+}
+
+model bill {
+  id          String   @id @default(uuid())
+  scanType    ScanType
+  totalAmount Float
+  concession  Float
+  dueAmount   Float
+  createdAt   DateTime @default(now())
+
+  patientId String?
+  patient   patient? @relation(fields: [patientId], references: [id])
 }
 
 enum ClinicAccountType {
@@ -38,4 +52,10 @@ enum ClinicAccountType {
 enum PatientType {
   REGULAR
   OBS
+}
+
+enum ScanType {
+  XRAY
+  CTSCAN
+  USG
 }
