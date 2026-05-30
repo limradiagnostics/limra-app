@@ -5,4 +5,6 @@ const billRouter = Router();
 
 billRouter.post("/generate", billControllers.generateBillController);
 
+billRouter.get("/all", billControllers.fetchAllBillsController);
+
 export default billRouter;
