@@ -79,3 +79,56 @@ export const fetchAllPatientsService = async (type: PatientType) => {
     },
   });
 };
+
+export const fetchSinglePatientsService = async (phone: number) => {
+  return await prisma.patient.findUnique({
+    where: {
+      phone,
+    },
+  });
+};
+
+export const updatePatientService = async (
+  name: string,
+  address: {
+    home: string;
+    localArea: string;
+    pincode: number;
+    city: string;
+    state: string;
+  },
+  phone: number,
+  aadharNumber: number,
+  progenies: [
+    {
+      gender: string;
+      age: number;
+    },
+  ],
+  husbandName: string,
+  type: PatientType,
+) => {
+  const existing = await prisma.patient.findUnique({
+    where: {
+      phone,
+    },
+  });
+  if (!existing) throw new Error("Patient account does not exist");
+
+  const patient = await prisma.patient.update({
+    where: {
+      phone,
+    },
+    data: {
+      name,
+      address,
+      phone,
+      aadharNumber,
+      progenies,
+      husbandName,
+      type,
+    },
+  });
+
+  return patient;
+};
