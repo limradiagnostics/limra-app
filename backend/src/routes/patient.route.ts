@@ -12,4 +12,6 @@ patientRouter.post(
   patientController.registerOBSPatientController,
 );
 
+patientRouter.get("/", patientController.fetchAllPatientsController);
+
 export default patientRouter;
