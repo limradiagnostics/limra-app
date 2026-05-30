@@ -18,6 +18,17 @@ model clinic {
   createdAt         DateTime           @default(now())
 }
 
+model patient {
+  id           String   @id @default(uuid())
+  name         String
+  address      Json
+  phone        Int
+  aadharNumber Int?
+  progenies    Json?
+  husbandName  String?
+  createdAt    DateTime @default(now())
+}
+
 enum ClinicAccountType {
   DOCTOR
   RECEPTIONIST
