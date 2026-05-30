@@ -26,3 +26,13 @@ export const generateBillController = async (req: Request, res: Response) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+export const fetchAllBillsController = async (_req: Request, res: Response) => {
+  try {
+    const bills = await billServices.fetchAllBills();
+    res.status(200).json({ total: bills.length, bills });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(400).json({ error: error.message });
+  }
+};

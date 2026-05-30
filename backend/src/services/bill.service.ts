@@ -28,3 +28,7 @@ export const generateBillService = async (
 
   return { patientName, bill };
 };
+
+export const fetchAllBills = async () => {
+  return await prisma.bill.findMany();
+};
