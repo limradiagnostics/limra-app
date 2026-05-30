@@ -105,3 +105,39 @@ export const fetchSinglePatientController = async (
     return res.status(500).json({ error: error.message });
   }
 };
+
+export const updatePatientController = async (req: Request, res: Response) => {
+  const { name, address, phone, aadharNumber, progenies, husbandName, type } =
+    req.body;
+
+  const data = {
+    name,
+    address,
+    phone,
+    aadharNumber,
+    progenies,
+    husbandName,
+    type,
+  };
+  if (!data) {
+    console.log("Required fields are missing");
+    return res.status(404).json({ error: "Required fields are missing" });
+  }
+
+  try {
+    const patient = await patientServices.updatePatientService(
+      name,
+      address,
+      phone,
+      aadharNumber,
+      progenies,
+      husbandName,
+      type,
+    );
+
+    res.status(200).json({ message: "Patient profile updated", patient });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};
