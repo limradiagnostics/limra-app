@@ -13,5 +13,6 @@ patientRouter.post(
 );
 
 patientRouter.get("/", patientController.fetchAllPatientsController);
+patientRouter.get("/:phone", patientController.fetchSinglePatientController);
 
 export default patientRouter;
