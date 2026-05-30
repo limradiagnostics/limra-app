@@ -29,6 +29,38 @@ export const generateBillService = async (
   return { patientName, bill };
 };
 
-export const fetchAllBills = async () => {
+export const fetchAllBillsService = async () => {
   return await prisma.bill.findMany();
+};
+
+export const updateBillService = async (
+  id: string,
+  patientId: string,
+  scanType: ScanType,
+  totalAmount: number,
+  concession: number,
+  dueAmount: number,
+) => {
+  const patient = await prisma.patient.findUnique({
+    where: {
+      id: patientId,
+    },
+  });
+
+  const bill = await prisma.bill.update({
+    where: {
+      id,
+    },
+    data: {
+      patientId,
+      scanType,
+      totalAmount,
+      concession,
+      dueAmount,
+    },
+  });
+
+  const patientName = patient?.name;
+
+  return { patientName, bill };
 };
