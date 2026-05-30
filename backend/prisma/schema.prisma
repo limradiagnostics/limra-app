@@ -25,7 +25,7 @@ model patient {
   phone        Int         @unique
   type         PatientType
   aadharNumber Int?
-  progenies    Json?
+  progenies    Json[]
   husbandName  String?
   createdAt    DateTime    @default(now())
 }
