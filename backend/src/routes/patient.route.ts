@@ -7,5 +7,9 @@ patientRouter.post(
   "/register/regular",
   patientController.registerRegularPatientController,
 );
+patientRouter.post(
+  "/register/obs",
+  patientController.registerOBSPatientController,
+);
 
 export default patientRouter;
