@@ -146,3 +146,21 @@ export const updatePatientController = async (req: Request, res: Response) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+export const deletePatientController = async (req: Request, res: Response) => {
+  const { phone } = req.params;
+
+  if (!phone) {
+    console.log("Phone number not found in params");
+    return res.status(400).json({ error: "Phone number not found in params" });
+  }
+
+  try {
+    await patientServices.deletePatientService(phone as string);
+
+    res.status(204).json({ message: "Deleted patient" });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(400).json({ error: error.message });
+  }
+};
