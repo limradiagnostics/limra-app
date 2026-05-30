@@ -80,10 +80,11 @@ export const fetchAllPatientsService = async (type: PatientType) => {
   });
 };
 
-export const fetchSinglePatientsService = async (phone: number) => {
+export const fetchSinglePatientService = async (phone: string) => {
+  const contact = Number(phone);
   return await prisma.patient.findUnique({
     where: {
-      phone,
+      phone: contact,
     },
   });
 };

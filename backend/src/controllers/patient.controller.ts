@@ -82,3 +82,26 @@ export const fetchAllPatientsController = async (
     return res.status(500).json({ error: error.message });
   }
 };
+
+export const fetchSinglePatientController = async (
+  req: Request,
+  res: Response,
+) => {
+  const { phone } = req.params;
+
+  if (!phone) {
+    console.log("Phone number not found in params");
+    return res.status(404).json({ error: "Phone number not found in params" });
+  }
+
+  try {
+    const patient = await patientServices.fetchSinglePatientService(
+      phone as string,
+    );
+
+    res.status(200).json({ patient });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};
